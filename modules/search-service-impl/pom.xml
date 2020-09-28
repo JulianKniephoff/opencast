@@ -132,11 +132,13 @@
       <artifactId>easymock</artifactId>
       <scope>test</scope>
     </dependency>
+    <!-- Already included in scope `compile` (standard)
     <dependency>
       <groupId>org.eclipse.persistence</groupId>
       <artifactId>org.eclipse.persistence.core</artifactId>
       <scope>test</scope>
     </dependency>
+    -->
     <dependency>
       <groupId>org.eclipse.persistence</groupId>
       <artifactId>org.eclipse.persistence.jpa</artifactId>
