@@ -46,3 +46,6 @@ Makefile
 
 # Ignore phantomjs logs
 phantomjsdriver.log
+
+# Ignore build caches
+/cache

@@ -674,11 +674,13 @@
               <goals>
                 <goal>install</goal>
               </goals>
+	      <configuration>
+		<version>1.9.8</version>
+                <outputDirectory>${maven.multiModuleProjectDirectory}/cache/phantomjs-maven-plugin</outputDirectory>
+                <skip>${skipTests}</skip>
+              </configuration>
             </execution>
           </executions>
-          <configuration>
-            <version>1.9.8</version>
-          </configuration>
         </plugin>
         <plugin>
           <groupId>com.github.searls</groupId>
