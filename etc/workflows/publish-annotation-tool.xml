@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definition xmlns="http://workflow.opencastproject.org">
+  <id>publish-annotation-tool</id>
+  <title>Publish to Annotation Tool</title>
+  <tags>
+    <tag>archive</tag>
+  </tags>
+  <operations>
+    <operation
+      id="publish-configure"
+      exception-handler-workflow="partial-error"
+      description="Publish to Annotation Tool">
+      <configurations>
+        <configuration key="channel-id">annotation-tool</configuration>
+        <configuration key="source-tags">engage-download,engage-streaming</configuration>
+        <configuration key="url-pattern">http://localhost:8080/annotation-tool/index.html?id=${event_id}</configuration>
+      </configurations>
+    </operation>
+  </operations>
+
+  <state-mappings>
+    <state-mapping state="running">EVENTS.EVENTS.STATE_MAPPING.PUBLISHING</state-mapping>
+    <state-mapping state="failing">EVENTS.EVENTS.STATE_MAPPING.PUBLISHING</state-mapping>
+  </state-mappings>
+</definition>

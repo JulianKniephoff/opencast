@@ -284,6 +284,10 @@
     <sec:intercept-url pattern="/static/**" method="GET" access="ROLE_ANONYMOUS" />
     <sec:intercept-url pattern="/export/**" method="GET" access="ROLE_ANONYMOUS" />
 
+    <!-- Enable authenticated access to the Annotation Tool -->
+    <sec:intercept-url pattern="/annotation-tool/**" access="ROLE_USER" />
+    <sec:intercept-url pattern="/extended-annotations/**" access="ROLE_USER" />
+
     <!-- Enable access to Opencast Studio -->
     <!-- Admins can access it, as can users with 'ROLE_STUDIO'. A few static -->
     <!-- files are also accessible to everyone: 'manifest.json' and source maps -->

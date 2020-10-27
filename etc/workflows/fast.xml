@@ -211,6 +211,16 @@
       </configurations>
     </operation>
 
+    <!-- Publish to Annotation Tool -->
+
+    <operation
+      id="include"
+      description="Publish to Annotation Tool">
+      <configurations>
+        <configuration key="workflow-id">publish-annotation-tool</configuration>
+      </configurations>
+    </operation>
+
     <!-- Archive the current state of the media package -->
 
     <operation
