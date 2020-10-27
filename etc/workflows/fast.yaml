@@ -109,6 +109,11 @@ operations:
       - download-source-tags: "engage-download"
       - check-availability: false
 
+  - id: include
+    description: "Publish to the Annotation Tool"
+    configurations:
+      - workflow-id: publish-annotation-tool
+
   - id: snapshot
     fail-on-error: true
     exception-handler-workflow: "partial-error"
