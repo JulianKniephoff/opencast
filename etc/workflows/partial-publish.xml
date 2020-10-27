@@ -301,5 +301,15 @@
 
     <!-- Here you can place operations to publish to your publication channels -->
 
+    <!-- Publish to Annotation Tool -->
+
+    <operation
+      id="include"
+      description="Publish to Annotation Tool">
+      <configurations>
+        <configuration key="workflow-id">publish-annotation-tool</configuration>
+      </configurations>
+    </operation>
+
   </operations>
 </definition>

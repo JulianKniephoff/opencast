@@ -17,6 +17,15 @@
   <operations>
 
     <operation
+      id="retract-configure"
+      exception-handler-workflow="partial-error"
+      description="Retract recording from the Annotation Tool">
+      <configurations>
+	<configuration key="channel-id">annotation-tool</configuration>
+      </configurations>
+    </operation>
+
+    <operation
       id="retract-engage"
       exception-handler-workflow="partial-error"
       description="Retract recording from Engage">
