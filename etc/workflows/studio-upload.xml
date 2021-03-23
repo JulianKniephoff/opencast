@@ -63,16 +63,16 @@
             $('#straightToPublishing').change();
         });
 
-        <!-- called on loading an exisiting event -->
+        // called on loading an exisiting event
         $('#straightToPublishing').bind('updateConfigUI', function() {
             var publish = $(this).val().toLowerCase() === 'true';
             $('#publicationConfigurationPanel').toggle(publish);
             $('#holdOrPublishToggle_' + (publish ? 'publish':'hold')).prop('checked', 'checked');
         });
 
-        <!-- Remove the line below if you wish to publish to AWS S3 -->
+        // Remove the line below if you wish to publish to AWS S3
         $('#publishToAws').prop('disabled', true);
-        <!-- Remove the line above if you wish to publish to AWS S3 -->
+        // Remove the line above if you wish to publish to AWS S3
 
         awsWasDisabled = $('#publishToAws').prop('disabled');
         awsWasChecked = $('#publishToAws').prop('checked');
