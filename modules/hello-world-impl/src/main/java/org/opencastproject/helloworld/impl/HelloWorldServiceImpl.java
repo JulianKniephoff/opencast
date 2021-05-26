@@ -23,7 +23,10 @@ package org.opencastproject.helloworld.impl;
 
 import org.opencastproject.helloworld.api.HelloWorldService;
 
+import org.opencastproject.search.api.SearchService;
+import org.opencastproject.security.api.SecurityService;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,6 +44,13 @@ public class HelloWorldServiceImpl implements HelloWorldService {
 
   /** The module specific logger */
   private static final Logger logger = LoggerFactory.getLogger(HelloWorldServiceImpl.class);
+
+  private SearchService searchService;
+
+  @Reference
+  public void setSearchService(SearchService searchService) {
+    this.searchService = searchService;
+  }
 
   public String helloWorld() {
     logger.info("Hello World");

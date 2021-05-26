@@ -50,6 +50,11 @@
       <artifactId>junit</artifactId>
       <scope>test</scope>
     </dependency>
+      <dependency>
+        <groupId>org.opencastproject</groupId>
+        <artifactId>opencast-search-service-api</artifactId>
+        <version>${project.version}</version>
+      </dependency>
   </dependencies>
   <build>
     <plugins>
