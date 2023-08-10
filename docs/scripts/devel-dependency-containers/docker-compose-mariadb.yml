@@ -1,7 +1,6 @@
 version: '2'
 services:
   elasticsearch:
-    container_name: opencast-opensearch
     image: opensearchproject/opensearch:1
     ports:
       - 127.0.0.1:9200:9200
@@ -15,7 +14,6 @@ services:
       - "DISABLE_SECURITY_PLUGIN=true" # disables security plugin entirely in OpenSearch by setting plugins.security.disabled: true in opensearch.yml
       - "discovery.type=single-node" # disables bootstrap checks that are enabled when network.host is set to a non-loopback address
   mariadb:
-    container_name: opencast-mariadb
     image: docker.io/library/mariadb:10.5.9
     ports:
       - 127.0.0.1:3306:3306
