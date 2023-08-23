@@ -326,10 +326,7 @@ public class WowzaStreamingDistributionService extends AbstractDistributionServi
 
   private URI getStreamingURLforCurrentOrg() {
     String currentOrgId = securityService.getOrganization().getId();
-    if (streamingUrls.containsKey(currentOrgId)) {
-      return streamingUrls.get(currentOrgId);
-    }
-    return null;
+    return streamingUrls.get(currentOrgId);
   }
 
   /**
