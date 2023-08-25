@@ -195,6 +195,7 @@ public class TestTasksEndpoint extends TasksEndpoint {
     //We need two handlers
     am.addEventHandler(EasyMock.createNiceMock(AssetManagerUpdateHandler.class));
     am.addEventHandler(EasyMock.createNiceMock(AssetManagerUpdateHandler.class));
+    am.addEventHandler(EasyMock.createNiceMock(AssetManagerUpdateHandler.class));
 
     return am;
   }
