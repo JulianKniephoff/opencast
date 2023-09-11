@@ -472,8 +472,15 @@
         <ref bean="jwtHeaderFilter" /> -->
         <!-- Additionally/alternatively uncomment this to support passing a JWT in a URL parameter.
         <ref bean="jwtRequestParameterFilter" /> -->
+
+        <ref bean="testFilter" />
       </list>
     </property>
+  </bean>
+
+  <bean id="testFilter" class="org.opencastproject.security.jwt.TestFilter">
+    <property name="securityService" ref="securityService" />
+    <property name="userReferenceProvider" ref="userReferenceProvider" />
   </bean>
 
   <!-- ########################################### -->
