@@ -39,7 +39,6 @@ import org.opencastproject.search.api.SearchService;
 import org.opencastproject.security.api.UnauthorizedException;
 import org.opencastproject.util.MimeType;
 
-import org.apache.commons.lang3.StringUtils;
 import org.osgi.service.component.ComponentContext;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
@@ -76,7 +75,7 @@ public class PublicationEventUpdateHandler implements AssetManagerUpdateHandler 
   private static final String CONFIGURATION_PUBLICATION_CHANNEL_IDS = "publication.channel.ids";
   private static final String CONFIGURATION_SOURCE_FLAVORS = "publication.flavors";
 
-  private Set<String> configurationPublicationChannelIds = new HashSet<>();
+  private Set<String> publicationChannelIds;
   private List<String> sourceFlavors;
 
   private DownloadDistributionService downloadDistributionService;
@@ -101,21 +100,19 @@ public class PublicationEventUpdateHandler implements AssetManagerUpdateHandler 
   @Activate
   public void activate(ComponentContext cc) {
     logger.info("Activating {}", PublicationEventUpdateHandler.class.getName());
-    Object pubChannelIdsValue = cc.getProperties().get(CONFIGURATION_PUBLICATION_CHANNEL_IDS);
-    if (pubChannelIdsValue != null) {
-      for (String publicationChannel : StringUtils.split(pubChannelIdsValue.toString(), ',')) {
-        if (StringUtils.trimToNull(publicationChannel) != null) {
-          configurationPublicationChannelIds.add(StringUtils.trimToNull(publicationChannel));
-        }
-      }
-    }
-    logger.debug("Auto-republish channel ids: {}", configurationPublicationChannelIds);
+    String pubChannelIdsString = Objects.toString(cc.getProperties().get(CONFIGURATION_PUBLICATION_CHANNEL_IDS), "");
+    publicationChannelIds = Arrays.stream(pubChannelIdsString.split(","))
+        .map(String::trim)
+        .filter(Predicate.not(String::isEmpty))
+        .collect(Collectors.toSet());
+    logger.debug("Auto-republish channel ids: {}", publicationChannelIds);
 
-    String sourceFlavorsString = StringUtils.trimToEmpty(Objects.toString(cc.getProperties().get(CONFIGURATION_SOURCE_FLAVORS)));
+    String sourceFlavorsString = Objects.toString(cc.getProperties().get(CONFIGURATION_SOURCE_FLAVORS), "");
     sourceFlavors = Arrays.stream(sourceFlavorsString.split(","))
         .map(String::trim)
         .filter(Predicate.not(String::isEmpty))
         .collect(Collectors.toList());
+    logger.debug("Auto-republish flavors: {}", sourceFlavors);
   }
 
   @Deactivate
@@ -135,7 +132,7 @@ public class PublicationEventUpdateHandler implements AssetManagerUpdateHandler 
 
   private void updatePublications(MediaPackage mediaPackage) {
     for (Publication publication : mediaPackage.getPublications().clone()) {
-      if (!configurationPublicationChannelIds.contains(publication.getChannel())) {
+      if (!publicationChannelIds.contains(publication.getChannel())) {
         continue;
       }
       String channelId = publication.getChannel();
