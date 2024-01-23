@@ -77,11 +77,11 @@ public class PublicationEventUpdateHandler implements AssetManagerUpdateHandler 
   private static final String CONFIGURATION_SOURCE_FLAVORS = "publication.flavors";
 
   private Set<String> configurationPublicationChannelIds = new HashSet<>();
-  private List<String> sourceFlavors = new ArrayList<>();
+  private List<String> sourceFlavors;
 
-  private DownloadDistributionService downloadDistributionService = null;
-  private StreamingDistributionService streamingDistributionService = null;
-  private SearchService searchService = null;
+  private DownloadDistributionService downloadDistributionService;
+  private StreamingDistributionService streamingDistributionService;
+  private SearchService searchService;
 
   @Reference(target = "(distribution.channel=streaming)")
   protected void setStreamingDistributionService(StreamingDistributionService streamingDistributionService) {
@@ -102,7 +102,6 @@ public class PublicationEventUpdateHandler implements AssetManagerUpdateHandler 
   public void activate(ComponentContext cc) {
     logger.info("Activating {}", PublicationEventUpdateHandler.class.getName());
     Object pubChannelIdsValue = cc.getProperties().get(CONFIGURATION_PUBLICATION_CHANNEL_IDS);
-    configurationPublicationChannelIds.clear();
     if (pubChannelIdsValue != null) {
       for (String publicationChannel : StringUtils.split(pubChannelIdsValue.toString(), ',')) {
         if (StringUtils.trimToNull(publicationChannel) != null) {
