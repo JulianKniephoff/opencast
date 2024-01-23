@@ -20,8 +20,6 @@
  */
 package org.opencastproject.index.service.impl.util;
 
-import static org.opencastproject.workflow.handler.distribution.EngagePublicationChannel.CHANNEL_ID;
-
 import org.opencastproject.distribution.api.DistributionException;
 import org.opencastproject.distribution.api.DownloadDistributionService;
 import org.opencastproject.distribution.api.StreamingDistributionService;
@@ -38,6 +36,7 @@ import org.opencastproject.search.api.SearchResultItem;
 import org.opencastproject.search.api.SearchService;
 import org.opencastproject.security.api.UnauthorizedException;
 import org.opencastproject.util.MimeType;
+import org.opencastproject.workflow.handler.distribution.EngagePublicationChannel;
 
 import org.osgi.service.component.ComponentContext;
 import org.osgi.service.component.annotations.Activate;
@@ -59,14 +58,14 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Component(
-        immediate = true,
-        service = {
-                AssetManagerUpdateHandler.class
-        },
-        property = {
-                "service.description=Update event publication metadata and ACLs",
-                "opencast.service.type=org.opencastproject.index.service.impl.util.PublicationEventUpdateHandler"
-        }
+    immediate = true,
+    service = {
+        AssetManagerUpdateHandler.class
+    },
+    property = {
+        "service.description=Update event publication metadata and ACLs",
+        "opencast.service.type=org.opencastproject.index.service.impl.util.PublicationEventUpdateHandler"
+    }
 )
 public class PublicationEventUpdateHandler implements AssetManagerUpdateHandler {
 
@@ -157,7 +156,7 @@ public class PublicationEventUpdateHandler implements AssetManagerUpdateHandler 
         elementIds.add(elem.getIdentifier());
       }
 
-      if (elementIds.size() < 1) {
+      if (elementIds.isEmpty()) {
         // Nothing to republish, do nothing
         continue;
       }
@@ -194,7 +193,7 @@ public class PublicationEventUpdateHandler implements AssetManagerUpdateHandler 
       mediaPackage.add(newPublication);
 
       // Also search service
-      if (channelId.equals(CHANNEL_ID)) {
+      if (channelId.equals(EngagePublicationChannel.CHANNEL_ID)) {
         try {
           SearchQuery q = new SearchQuery().withId(mediaPackage.getIdentifier().toString()).withLimit(-1);
           SearchResult result = searchService.getForAdministrativeRead(q);
