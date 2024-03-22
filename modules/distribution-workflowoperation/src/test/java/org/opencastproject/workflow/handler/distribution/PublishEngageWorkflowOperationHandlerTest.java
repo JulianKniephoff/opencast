@@ -36,6 +36,7 @@ import org.opencastproject.mediapackage.Publication;
 import org.opencastproject.mediapackage.Track;
 import org.opencastproject.mediapackage.identifier.Id;
 import org.opencastproject.mediapackage.identifier.IdImpl;
+import org.opencastproject.publication.api.EngagePublicationService;
 import org.opencastproject.search.api.SearchQuery;
 import org.opencastproject.search.api.SearchResult;
 import org.opencastproject.search.api.SearchResultItem;
@@ -107,7 +108,7 @@ public class PublishEngageWorkflowOperationHandlerTest {
     EasyMock.replay(serviceRegistry);
 
     Map<String, String> orgProps = new HashMap<String, String>();
-    orgProps.put(PublishEngageWorkflowOperationHandler.ENGAGE_URL_PROPERTY, "https://opencast.edu");
+    orgProps.put(EngagePublicationService.ENGAGE_URL_PROPERTY, "https://opencast.edu");
     org = new JaxbOrganization(DefaultOrganization.DEFAULT_ORGANIZATION_ID,
             DefaultOrganization.DEFAULT_ORGANIZATION_NAME, null, DefaultOrganization.DEFAULT_ORGANIZATION_ADMIN,
             DefaultOrganization.DEFAULT_ORGANIZATION_ANONYMOUS, orgProps);
@@ -164,7 +165,6 @@ public class PublishEngageWorkflowOperationHandlerTest {
 
     // Test configured organization player path
     PublishEngageWorkflowOperationHandler publishEngagePublish = new PublishEngageWorkflowOperationHandler();
-    URI result = publishEngagePublish.createEngageUri(engageURI, mp);
     assertEquals(engageURI.toString() + "/play/" + mpId, result.toString());
   }
 
@@ -182,7 +182,7 @@ public class PublishEngageWorkflowOperationHandlerTest {
     // Test default player path
     PublishEngageWorkflowOperationHandler publishEngagePublish = new PublishEngageWorkflowOperationHandler();
     URI result = publishEngagePublish.createEngageUri(engageURI, mp);
-    assertEquals(engageURI.toString() + PublishEngageWorkflowOperationHandler.PLAYER_PATH + mpId, result.toString());
+    assertEquals(engageURI.toString() + EngagePublicationService.PLAYER_PATH + mpId, result.toString());
 
   }
 
@@ -263,7 +263,7 @@ public class PublishEngageWorkflowOperationHandlerTest {
 
     operation.setConfiguration(PublishEngageWorkflowOperationHandler.DOWNLOAD_SOURCE_TAGS, "engage");
     operation.setConfiguration(PublishEngageWorkflowOperationHandler.STRATEGY,
-            PublishEngageWorkflowOperationHandler.PUBLISH_STRATEGY_MERGE);
+            EngagePublicationService.PUBLISH_STRATEGY_MERGE);
     // Do not merge force any flavors
     operation.setConfiguration(PublishEngageWorkflowOperationHandler.MERGE_FORCE_FLAVORS, "dummy/dummy"); // flavors
     WorkflowOperationResult result = handler.start(workflowInstance, null);
@@ -321,7 +321,7 @@ public class PublishEngageWorkflowOperationHandlerTest {
 
     operation.setConfiguration(PublishEngageWorkflowOperationHandler.DOWNLOAD_SOURCE_TAGS, "engage");
     operation.setConfiguration(PublishEngageWorkflowOperationHandler.STRATEGY,
-            PublishEngageWorkflowOperationHandler.PUBLISH_STRATEGY_MERGE);
+            EngagePublicationService.PUBLISH_STRATEGY_MERGE);
     // Use default merge force flavors. Remove "engage" tag from episode catalog so
     // that it's deleted from published mp.
     MediaPackageElement mpe = workflowInstance.getMediaPackage().getElementById("d84b6672-ff84-4df5-9ada-f1cdc0f2d901");
@@ -367,7 +367,7 @@ public class PublishEngageWorkflowOperationHandlerTest {
 
     operation.setConfiguration(PublishEngageWorkflowOperationHandler.DOWNLOAD_SOURCE_TAGS, "engage");
     operation.setConfiguration(PublishEngageWorkflowOperationHandler.STRATEGY,
-            PublishEngageWorkflowOperationHandler.PUBLISH_STRATEGY_MERGE);
+            EngagePublicationService.PUBLISH_STRATEGY_MERGE);
 
     WorkflowOperationResult result = handler.start(workflowInstance, null);
 
