@@ -182,7 +182,8 @@ public class PublicationEventUpdateHandler implements AssetManagerUpdateHandler 
       logger.debug("Distribute of mediapackage {} to channel {} completed", mediaPackage, channelId);
 
       // Re-add publication
-      Publication newPublication = PublicationImpl.publication(publicationId, channelId, publicationURI, publicationMimeType);
+      Publication newPublication = PublicationImpl.publication(publicationId, channelId, publicationURI,
+          publicationMimeType);
 
       // Add published elements
       for (MediaPackageElement element : downloadElements) {
