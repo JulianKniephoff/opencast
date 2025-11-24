@@ -295,6 +295,12 @@ public class YouTubeV3PublicationServiceImpl
       final YouTubePublicationAdapter c = new YouTubePublicationAdapter(mediaPackage, workspace);
       final File file = workspace.get(element.getURI());
       final String episodeName = c.getEpisodeName();
+      final String episodeLanguage = c.getEpisodeLanguage();
+      final String language = episodeLanguage == null ? null : languagePatterns.entrySet().stream()
+          .filter(e -> e.getValue().matcher(c.getEpisodeLanguage()).matches())
+          .findAny()
+          .map(Map.Entry::getKey)
+          .orElse(null);
       final UploadProgressListener operationProgressListener = new UploadProgressListener(mediaPackage, file);
       final String privacyStatus = makeVideosPrivate ? "private" : "public";
       final VideoUpload.License license = ccLicenses.map(
@@ -303,8 +309,10 @@ public class YouTubeV3PublicationServiceImpl
           : VideoUpload.License.youtube;
       final VideoUpload videoUpload = new VideoUpload(
           truncateTitleToMaxFieldLength(episodeName, false),
-          c.getEpisodeDescription(), license, privacyStatus,
-          file, operationProgressListener, tags);
+          c.getEpisodeDescription(), license,
+          transferMetadataLanguage ? language : null,
+          transferAudioLanguage ? language : null,
+          privacyStatus, file, operationProgressListener, tags);
       final Video video = youTubeService.addVideoToMyChannel(videoUpload);
       final int timeoutMinutes = 60;
       final long startUploadMilliseconds = new Date().getTime();
