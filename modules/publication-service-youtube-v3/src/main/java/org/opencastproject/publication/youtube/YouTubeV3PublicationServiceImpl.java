@@ -67,6 +67,7 @@ import java.util.Date;
 import java.util.Dictionary;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.regex.Pattern;
@@ -156,6 +157,7 @@ public class YouTubeV3PublicationServiceImpl
   private Optional<Pattern> ccLicenses;
 
   private boolean makeVideosPrivate;
+  private YouTubeAPIVersion3Service.PrivacyStatus playlistPrivacy;
 
   private String[] tags;
 
@@ -228,6 +230,8 @@ public class YouTubeV3PublicationServiceImpl
           defaultPlaylist = YouTubeUtils.get(properties, YouTubeKey.defaultPlaylist);
           makeVideosPrivate = StringUtils
                   .containsIgnoreCase(YouTubeUtils.get(properties, YouTubeKey.makeVideosPrivate), "true");
+          playlistPrivacy = YouTubeAPIVersion3Service.PrivacyStatus.valueOf(Objects.requireNonNullElse(
+                  YouTubeUtils.get(properties, YouTubeKey.playlistPrivacy, false), "public").toUpperCase());
           defaultMaxFieldLength(YouTubeUtils.get(properties, YouTubeKey.maxFieldLength, false));
         } else {
           logger.warn("Client information file does not exist: " + path);
@@ -329,7 +333,8 @@ public class YouTubeV3PublicationServiceImpl
       final Playlist playlist;
       final Playlist existingPlaylist = youTubeService.getMyPlaylistByTitle(playlistName);
       if (existingPlaylist == null) {
-        playlist = youTubeService.createPlaylist(playlistName, c.getContextDescription(), mediaPackage.getSeries());
+        playlist = youTubeService.createPlaylist(playlistName, c.getContextDescription(), playlistPrivacy,
+            mediaPackage.getSeries());
       } else {
         playlist = existingPlaylist;
       }
