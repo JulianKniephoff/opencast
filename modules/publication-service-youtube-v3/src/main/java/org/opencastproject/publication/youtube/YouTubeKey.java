@@ -34,6 +34,8 @@ public enum YouTubeKey {
   keywords,
   defaultPlaylist,
   ccLicenses,
+  languageTarget,
+  languagePatterns,
   makeVideosPrivate,
   maxFieldLength;
 }
