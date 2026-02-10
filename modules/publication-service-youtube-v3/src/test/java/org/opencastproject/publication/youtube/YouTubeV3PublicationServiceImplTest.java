@@ -111,13 +111,12 @@ public class YouTubeV3PublicationServiceImplTest {
           anyObject(Float.class))).andReturn(new JobImpl()).once();
     replay(youTubeService, orgDirectory, security, registry, userDirectoryService, workspace);
     service.updated(getServiceProperties());
-    service.publish(mediaPackage, mediaPackage.getTracks()[0], null);
+    service.publish(mediaPackage, mediaPackage.getTracks()[0], null, null);
   }
 
   private Dictionary getServiceProperties() throws IOException {
     final Properties p = new Properties();
     YouTubeUtils.put(p, YouTubeKey.credentialDatastore, "credentialDatastore");
-    YouTubeUtils.put(p, YouTubeKey.scopes, "foo");
     final String absolutePath = UnitTestUtils.getMockClientSecretsFile("clientId",
         testFolder.newFile("client-secrets-youtube-v3.json")).getAbsolutePath();
     YouTubeUtils.put(p, YouTubeKey.clientSecretsV3, absolutePath);

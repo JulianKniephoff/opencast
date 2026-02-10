@@ -24,23 +24,23 @@ YouTube has specific restrictions for custom thumbnails:
 Parameter Table
 ---------------
 
-|configuration keys         |description                                                                   |
-|---------------------------|------------------------------------------------------------------------------|
-|source-flavors             |The flavors to publish to YouTube                                             |
-|source-tags                |The tags to publish to YouTube                                                |
-|thumbnail-flavors          |The flavors of the thumbnail to publish to YouTube                            |
-|thumbnail-tags             |The tags of the thumbnail to publish to YouTube                               |
+|configuration keys         |description                                                                                                       |
+|---------------------------|------------------------------------------------------------------------------------------------------------------|
+|source-flavors             |The flavors of the video track to publish to YouTube.                                                             |
+|source-tags                |The tags of the video track to publish to YouTube.                                                                |
+|thumbnail-flavors          |The flavors of the thumbnail to publish to YouTube.                                                               |
+|thumbnail-tags             |The tags of the thumbnail to publish to YouTube.                                                                  |
+|caption-flavors            |The flavors of the captions to publish to YouTube.                                                                |
+|caption-tags               |The tags of the captions to publish to YouTube.                                                                   |
 
 
 Operation Example
 -----------------
 
-```xml
-<operation
-    id="publish-youtube"
-    description="Publishing to YouTube">
-  <configurations>
-    <configuration key="source-tags">youtube</configuration>
-  </configurations>
-</operation>
+```yaml
+  - id: publish-youtube
+    description: Publishing to YouTube
+    configurations:
+      - source-tags: youtube
+      - caption-flavors: captions/*
 ```
