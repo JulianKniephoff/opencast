@@ -28,7 +28,6 @@ import com.google.api.services.youtube.model.Playlist;
 import com.google.api.services.youtube.model.PlaylistItem;
 import com.google.api.services.youtube.model.PlaylistItemListResponse;
 import com.google.api.services.youtube.model.PlaylistListResponse;
-import com.google.api.services.youtube.model.SearchListResponse;
 import com.google.api.services.youtube.model.Video;
 
 import java.io.File;
@@ -45,16 +44,6 @@ public interface YouTubeAPIVersion3Service {
    * @throws IOException when configuration files not found.
    */
   void initialize(ClientCredentials credentials) throws IOException;
-
-  /**
-   * Search for videos on predefined channel.
-   * @param queryTerm may not be {@code null}
-   * @param pageToken may not be {@code null}
-   * @param maxResults may not be {@code null}
-   * @return zero or more results. Will not be {@code null}.
-   * @throws IOException when search fails.
-   */
-  SearchListResponse searchMyVideos(String queryTerm, String pageToken, long maxResults) throws IOException;
 
   /**
    * Get video by id.
