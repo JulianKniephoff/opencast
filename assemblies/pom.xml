@@ -8,7 +8,6 @@
     <relativePath>../pom.xml</relativePath>
   </parent>
   <properties>
-    <checkstyle.skip>true</checkstyle.skip>
     <opencast.basedir>${project.basedir}/..</opencast.basedir>
     <packaging.definition>${opencast.basedir}/assemblies/package.xml</packaging.definition>
   </properties>
@@ -52,6 +51,12 @@
     </profile>
   </profiles>
   <build>
+    <resources>
+      <resource>
+        <directory>${opencast.basedir}/etc</directory>
+        <targetPath>etc</targetPath>
+      </resource>
+    </resources>
     <plugins>
       <!-- Make sure to clean build dir before rebuilding assemblies -->
       <plugin>

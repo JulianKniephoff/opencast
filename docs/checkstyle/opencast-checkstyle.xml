@@ -22,6 +22,8 @@
   <!-- Makes sure lines are not longer than 120 chars -->
   <module name="LineLength">
     <property name="max" value="120"/>
+    <!-- Ignore URLs at the end of lines, which are often longer than 120 chars and cannot be easily shortened. -->
+    <property name="ignorePattern" value="\s*https?://\S*$"/>
   </module>
 
   <!-- Allow to disable checkstyle for sections of the code with `// CHECKSTYLE:OFF`
